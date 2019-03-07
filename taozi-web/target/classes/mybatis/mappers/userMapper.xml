@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="code.dao.UserDao">
+
+    <select id="checkUser" resultType="User">
+        SELECT * FROM org_user WHERE phone = #{account} AND password = #{password}
+    </select>
+
+    <select id="getUserById" resultType="User">
+        SELECT * FROM org_user WHERE user_id = #{userId}
+    </select>
+
+    <select id="getUserByPhone" resultType="User">
+        SELECT * FROM org_user WHERE phone = #{phone}
+    </select>
+
+    <insert id="saveUser" keyProperty="userId" useGeneratedKeys="true" parameterType="User">
+        INSERT INTO org_user(nickname,password,profession,phone) VALUES(#{nickname},#{password},#{profession},#{phone});
+    </insert>
+
+    <update id="uploadHead">
+        UPDATE org_user SET is_set_head = 1,set_head_time = #{date},head_url = #{url} where user_id = #{userId}
+    </update>
+
+    <update id="updateInfo">
+        UPDATE org_user SET nickname=#{name},sex=#{sex},profession=#{job},aboutme=#{aboutme} WHERE user_id=#{userId}
+    </update>
+
+    <insert id="attentionUser">
+        INSERT INTO org_user_attention_rs(user_id,attention_user_id) VALUES(#{userId},#{aUserId})
+    </insert>
+
+    <delete id="quitAttentionUser">
+        DELETE FROM org_user_attention_rs WHERE user_id = #{userId} AND attention_user_id = #{aUserId}
+    </delete>
+
+    <select id="getAttentionUser" resultType="integer">
+        SELECT attention_user_id FROM org_user_attention_rs WHERE user_id = #{userId}
+    </select>
+
+    <select id="getUserByIds" resultType="User">
+        SELECT * FROM org_user WHERE user_id IN
+        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

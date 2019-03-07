@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         id="taozi-web" version="2.5">
+  <display-name>taozi-web</display-name>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring/applicationContext*.xml</param-value>
+  </context-param>
+  <!--Spring的ApplicationContext 载入 -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <!--spring session filter-->
+  <filter>
+    <filter-name>springSessionRepositoryFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>springSessionRepositoryFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <!-- 编码过滤器，以UTF8编码 -->
+  <!-- characterEncodingFilter字符编码过滤器 -->
+  <filter>
+    <filter-name>characterEncodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <!--要使用的字符集，一般我们使用UTF-8(保险起见UTF-8最好)-->
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <!--是否强制设置request的编码为encoding，默认false，不建议更改-->
+      <param-name>forceRequestEncoding</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <!--是否强制设置response的编码为encoding，建议设置为true，下面有关于这个参数的解释-->
+      <param-name>forceResponseEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>characterEncodingFilter</filter-name>
+    <!--这里不能留空或者直接写 ' / ' ，否者不起作用-->
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+  <!--为用户设置唯一标识-->
+<!--  <filter>
+    <filter-name>userUnionFilter</filter-name>
+    <filter-class>filter.UserUnionIdFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>userUnionFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>-->
+
+  <!-- 配置SpringMVC -->
+  <servlet>
+    <servlet-name>springmvc</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!-- 指定SpringMVC配置文件 -->
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring/springmvc-config.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>springmvc</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+</web-app>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- MVC注解驱动 -->
+	<mvc:annotation-driven/>
+
+	<!-- 配置扫描器，使得@Controller注解生效 -->
+	<context:component-scan base-package="code.collector" />
+
+	<!-- 引入同文件夹下的redis属性配置文件 -->
+	<import resource="applicationContext-redis.xml"/>
+
+	<!-- 定义视图解析器 -->
+	<!-- prefix="/WEB-INF/views/", suffix=".jsp", viewname="test" -> "/WEB-INF/jsp/test.jsp" -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 前缀 -->
+		<property name="prefix" value="/WEB-INF/" />
+		<!-- 后缀 -->
+		<property name="suffix" value=".html" />
+	</bean>
+
+	<!-- 处理静态资源被“/”所拦截的问题 -->
+	<mvc:default-servlet-handler />
+	
+	<!-- 文件上传解析器，springmvc源码写死multipartResolver，10*1024*1024=10m，原因：apache commons 文件上传，基于http协议；H5,flush  -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8"/>
+		<property name="maxUploadSize" value="10485760"/>
+	</bean>
+
+	<mvc:interceptors>
+		<bean class="code.interceptor.AutoLoginInterceptor" />
+	</mvc:interceptors>
+</beans>

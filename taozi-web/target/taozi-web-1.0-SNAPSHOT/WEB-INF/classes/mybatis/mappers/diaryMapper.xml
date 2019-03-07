@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="code.dao.DiaryDao">
+
+    <insert id="saveBlogDiary" parameterType="BlogArticle" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO blog_article(title,content,view_times,state,user_id,article_kind_id,blod_kind_id)
+                VALUES(#{title},#{content},#{viewTimes},#{state},#{userId},#{articleKindId},#{blogKindId})
+    </insert>
+
+    <select id="getBlogDiary" resultType="BlogArticle">
+        SELECT ba.*,ou.head_url,ou.nickname,ou.user_id FROM blog_article AS ba
+        JOIN org_user AS ou ON ou.user_id = ba.user_id
+        <if test="userId != null">
+            WHERE ou.user_id = #{userId}
+        </if>
+    </select>
+
+    <select id="getDiaryKind" resultType="map">
+        SELECT * FROM article_kind
+    </select>
+    
+    <select id="getBlogKind" resultType="map">
+        SELECT * FROM blog_kind
+    </select>
+
+    <select id="getDiaryInfo" resultType="map">
+        SELECT ba.*,ou.head_url,ou.nickname,ou.user_id FROM blog_article AS ba
+        JOIN org_user AS ou ON ou.user_id = ba.user_id
+        WHERE ba.id = #{did}
+    </select>
+</mapper>

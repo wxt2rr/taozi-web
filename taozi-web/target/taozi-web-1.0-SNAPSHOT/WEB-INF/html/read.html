@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#header').load('index.html');
+
+        $('.configFoot').load('homeFooter.html');
+
+    });
+
+</script>
+<link rel="stylesheet" type="text/css" href="../../libs/simditor-2.3.18/simditor.css"/>
+<link rel="stylesheet" href="../../less/taozi.less" />
+    <style type="text/css">
+        .contentElem input{
+            padding: 0px;
+            margin: 0px;
+        }
+        .contentElem div{
+            padding: 0px;
+            margin: 0px;
+            height: 2000px;
+            line-height:100px;
+            overflow:hidden;
+        }
+        .contentElem .name{
+            width:126px;
+        }
+        .contentHtml div{
+            width: auto;
+            height: 2000px;
+        }
+        .contentHtml .value{
+            width: 1024px;
+        }
+        .contentHtml .btnSet{
+            width: 130px;
+            height: 2000px;
+            float: right;
+            margin: 12px 0px 40px 20px;
+            background-color: #00aebb;
+            color: yellow;
+        }
+    </style>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>read</title>
+</head>
+<body>
+<div id="header"></div>
+<div id="noticeContentDiv" class="row-fluid">
+    <div id="weather" style="width: 1000px;margin: auto">
+
+    </div>
+    <div style="width: 1000px;margin: auto">
+        <input style="width: 990px;height: 30px;" type="text" id="title" placeholder="请输入标题">
+    </div>
+    <div style="width: 1000px;margin: auto;margin-top: 20px">
+        <textarea id="editor" autofocus></textarea>
+    </div>
+    <div style="width: 1000px;margin: auto;margin-top: 20px">
+        文章类型：
+        <select id="article_kind_id" style="width: auto;">
+            <option value="0">请选择</option>
+        </select><font color="red">*</font>
+        博客类型：
+        <select id="blog_kind_id" style="width: auto;">
+            <option value="0">请选择</option>
+        </select>
+        <font color="red">*</font>
+    </div>
+    <div style="width: 1000px;margin: auto;margin-top: 20px">
+        <input id="btnPublish" type="button" style="background-color: white;border-color: red;width: 80px;height: 30px" value="保存" title="xx">
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../../libs/tagsinput/jquery.min.js"></script>
+<script type="text/javascript" src="../../libs/simditor-2.3.18/module.js"></script>
+<script type="text/javascript" src="../../libs/simditor-2.3.18/hotkeys.js"></script>
+<script type="text/javascript" src="../../libs/simditor-2.3.18/uploader.js"></script>
+<script type="text/javascript" src="../../libs/simditor-2.3.18/simditor.js"></script>
+<script type="text/javascript" src="../../libs/tagsinput/jquery.tagsinput.js"></script>
+<script type="text/javascript" src="../../libs/tagsinput/jquery-ui.min.js"></script>
+<script src="../../libs/jquery-3.3.1/jquery-3.3.1.js"></script>
+<script src="../../html/read.js"></script>
+
+<!-- 编辑器源码文件 -->
+<script type="text/javascript">
+    var editor = new Simditor({
+        textarea: $('#editor'),
+        placeholder: '请输入内容',
+        defaultImage: '../../libs/simditor-2.3.18/image.png',
+        upload: {
+            url: "/diary/uploadBlogImg.do",
+            params: {type: 1},
+            fileKey: "upload_file",
+            connectionCount: 3,
+            leaveConfirm: "上传进行中，您确定关闭页面吗？"
+        },
+        toolbar: [
+            'title',
+            'bold',
+            'italic',
+            'underline',
+            'strikethrough',
+            'fontScale',
+            'color',
+            'ol',
+            'ul',
+            'table',
+            'link',
+            'image',
+            'hr',
+            'indent',
+            'outdent',
+            'alignment'
+        ]
+    });
+
+    $("a span").css("line-height","40px");
+    $(".link-popover").attr("id","testPop");
+
+    document.querySelector('.link-popover').style['z-index']=9999;
+    var blockFlag = false;
+    setInterval(function(){
+        var displayCSS=$('#testPop').css("display");
+        if(displayCSS==='block'){
+            document.querySelector('.link-popover').style['position']='fixed';
+            document.querySelector('#testPop').style['left']='43%';
+            if(blockFlag==false) {
+                document.querySelector('#testPop').style['top']='45%';
+            }
+            blockFlag = true;
+        } else {
+            blockFlag = false;
+        }
+    },100);
+</script>
