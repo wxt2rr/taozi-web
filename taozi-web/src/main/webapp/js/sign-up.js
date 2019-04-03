@@ -64,7 +64,7 @@
     });
 
     //修改密码
-    $('#forgot-from').on('submit',function(e){
+    $('#register-from').on('submit',function(e){
         e.preventDefault();
         var name = $("#name").val();
         var phone = $("#phone").val();
