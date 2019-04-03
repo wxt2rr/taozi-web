@@ -29,4 +29,6 @@ public interface UserDao {
     List<Integer> getAttentionUser(int userId);
 
     List<User> getUserByIds(@Param("ids") List<Integer> attentionUser);
+
+    int updatePassword(@Param("phone") String phone,@Param("password") String password);
 }

@@ -44,4 +44,8 @@
             #{item}
         </foreach>
     </select>
+
+    <update id="updatePassword">
+        UPDATE org_user SET password = #{password} where phone = #{phone}
+    </update>
 </mapper>

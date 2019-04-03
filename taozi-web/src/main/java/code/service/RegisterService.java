@@ -23,17 +23,17 @@ public class RegisterService {
 
     public GlobalResponse sendVCode(String phone) {
         Map<String, String> templateParam = new HashMap<String,String>();
-        String authCode = ValidateCodeUtil.getRandomNumber(4, null);
+        String authCode = ValidateCodeUtil.getRandomNumber(6, null);
         templateParam.put("code", authCode);
         String code = smsUtil.sendSms(phone, "SMS_144941081", templateParam);
         if(code == null || !"OK".equals(code)){
-            return GlobalResponse.createByError(-1,"send error");
+            return GlobalResponse.createByError(-105,"send error");
         }
         redisCache.set(phone,authCode);
         return GlobalResponse.createBySuccess();
     }
 
-    public GlobalResponse register(HttpServletRequest request,String name, String password, String surePassword, String profession, String phone, String vCode) {
+    public GlobalResponse register(HttpServletRequest request,String name, String password, String surePassword, String phone, String vCode) {
         Object o = redisCache.get(phone);
         String s = o == null ? null : String.valueOf(o);
         if(s == null || !s.equals(vCode)){
@@ -45,7 +45,7 @@ public class RegisterService {
         User user = new User();
         user.setNickname(name);
         user.setPassword(Md5Util.getStringMD5(password));
-        user.setProfession(profession);
+        user.setProfession("");
         user.setPhone(phone);
         userDao.saveUser(user);
         if(user.getUserId() > 0){
@@ -53,5 +53,16 @@ public class RegisterService {
         }else{
             return GlobalResponse.createByError(-4,"save user error");
         }
+    }
+
+    public GlobalResponse forgot(String phone, String password, String vCode) {
+        Object o = redisCache.get(phone);
+        String s = o == null ? null : String.valueOf(o);
+        if(s == null || !s.equals(vCode)){
+            return GlobalResponse.createByError(-2,"vCode is wrong");
+        }
+
+        int res = userDao.updatePassword(phone,Md5Util.getStringMD5(password));
+        return res > 0 ? GlobalResponse.createBySuccess() : GlobalResponse.createByError(-3,"error");
     }
 }

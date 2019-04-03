@@ -18,12 +18,12 @@ public class LoginService {
     @Autowired
     private UserDao loginDao;
 
-    public GlobalResponse login(String account, String password,int isRember, HttpServletRequest request,HttpServletResponse response) {
+    public GlobalResponse login(String account, String password,boolean isRemember, HttpServletRequest request,HttpServletResponse response) {
         password = Md5Util.getStringMD5(password);
         User user = loginDao.checkUser(account, password);
         if(user != null){
             request.getSession().setAttribute(ConstantManage.USER_SESSION_KEY,user.getUserId());
-            if(isRember > 0){
+            if(isRemember){
                 Cookie userCookie = new Cookie("loginInfo",String.format("%s_%s_%s",user.getUserId(),password,account));
                 userCookie.setMaxAge(30 * 24 * 60 * 60);//存活期为一个月 30*24*60*60
                 userCookie.setPath("/");

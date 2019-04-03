@@ -12,6 +12,8 @@ code\dao\UserDao.class
 code\service\RegisterService.class
 code\service\UserService.class
 code\collector\JumpPageCollector.class
+code\service\TestService.class
 code\collector\LoginCollector.class
+code\collector\TestCollector.class
 code\pojo\User.class
 code\dao\DiaryDao.class
