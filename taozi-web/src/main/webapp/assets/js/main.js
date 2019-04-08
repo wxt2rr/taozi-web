@@ -1,5 +1,19 @@
 (function($) {
 
+    $.ajax({
+        url : '/login/getLoginUser',
+        dataType : 'json',
+        type : 'POST',
+        data : {
+        },
+        success : function(data){
+            var code = data.body.code;
+            if(code == 200){
+                window.location.href="/html/home.html";
+            }
+        }
+    });
+
 	skel.breakpoints({
 		xlarge:	'(max-width: 1680px)',
 		large:	'(max-width: 1280px)',

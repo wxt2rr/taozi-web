@@ -17,44 +17,46 @@
     <div class="menu-btn">
       <div class="menu"></div>
     </div>
-    <h1 class="logo">
+    <h1 class="logo" style="margin-left: -50px">
       <a href="home.html">
         <span>MYBLOG</span>
-        <img src="/images/logo.png" style="width: 100px;height: 100px">
+        <img src="/images/logo.png" style="width: 200px;height: 80px">
       </a>
     </h1>
     <div class="nav">
-      <a href="" class="active">看博客</a>
-      <a href="">写博客</a>
-      <!--<a href="">留言</a>
-      <a href="">相册</a>
-      <a href="">关于</a>-->
+      <a href="/html/home.html">看博客</a>
+      <a href="/html/write.html">写博客</a>
     </div>
     <ul class="layui-nav header-down-nav">
-      <li class="layui-nav-item"><a href="home.html" class="active">文章</a></li>
-      <li class="layui-nav-item"><a href="whisper.html">微语</a></li>
-      <!--<li class="layui-nav-item"><a href="leacots.html">留言</a></li>
-      <li class="layui-nav-item"><a href="album.html">相册</a></li>
-      <li class="layui-nav-item"><a href="about.html">关于</a></li>-->
+      <li class="layui-nav-item"><a href="/html/home.html">看博客</a></li>
+      <li class="layui-nav-item"><a href="/html/write.html">写博客</a></li>
     </ul>
-    <!--<p class="welcome-text">
-      欢迎来到<span class="name">TAOZI</span>的博客~
-    </p>-->
+    <div style="float: right">
+      <ul class="layui-nav" style="background-color: white">
+        <li class="layui-nav-item" lay-unselect="">
+          <a href="javascript:"><img id="user-head" src="" style="width: 50px;height: 50px" class="layui-nav-img"><font color="black" size="10" id="user_info"></font></a>
+          <dl class="layui-nav-child">
+            <dd><a href="/html/user_info.html">修改信息</a></dd>
+            <dd><a href="javascript:;">我的博文</a></dd>
+            <dd><a href="javascript:;" id="login-out">退出登录</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
   </div>
 
-  <!--<div class="banner">
+  <div class="banner">
     <div class="cont w1000">
       <div class="title">
         <h3>TAOZI<br />BLOG</h3>
         <h4>well-balanced heart</h4>
       </div>
-      &lt;!&ndash;<div class="amount">
+      <!--<div class="amount">
         <p><span class="text">访问量</span><span class="access">1000</span></p>
         <p><span class="text">日志</span><span class="daily-record">1000</span></p>
-      </div>&ndash;&gt;
+      </div>-->
     </div>
-  </div>-->
-  <div class="tlinks">Collect from <a href="http://www.cssmoban.com/" >网页模板</a></div>
+  </div>
   <div class="content">
     <div class="cont w1000">
       <div class="title">
@@ -64,42 +66,8 @@
           <a href="javascript:">点赞最多</a>
         </span>
       </div>
-      <div class="list-item">
+      <div class="list-item" style="" id="item-list-div">
         <!--<div class="item">
-          <div class="layui-fluid">
-            <div class="layui-row">
-              <div class="layui-col-xs12 layui-col-sm4 layui-col-md5">
-                <div class="img"><img src="/images/sy_img1.jpg" alt=""></div>
-              </div>
-              <div class="layui-col-xs12 layui-col-sm8 layui-col-md7">
-                <div class="item-cont">
-                  <h3>空间立体效果图，完美呈现最终效果<button class="layui-btn layui-btn-danger new-icon">new</button></h3>
-                  <h5>设计文章</h5>
-                  <p>室内设计作为一门新兴的学科，尽管还只是近数十年的事，但是人们有意识地对自己生活、生产活动的室内进行安排布置，甚至美化装饰，赋予室内环境以所祈使的气氛，却早巳从人类文明伊始的时期就已存在</p>
-                  <a href="details.html" class="go-icon"></a>
-                </div>
-            </div>
-            </div>
-           </div>
-        </div>
-        <div class="item">
-          <div class="layui-fluid">
-            <div class="layui-row">
-              <div class="layui-col-xs12 layui-col-sm4 layui-col-md5">
-                <div class="img"><img src="/images/sy_img2.jpg" alt=""></div>
-              </div>
-              <div class="layui-col-xs12 layui-col-sm8 layui-col-md7">
-                <div class="item-cont">
-                  <h3>空间立体效果图，完美呈现最终效果<button class="layui-btn layui-btn-danger new-icon">new</button></h3>
-                  <h5>设计文章</h5>
-                  <p>室内设计作为一门新兴的学科，尽管还只是近数十年的事，但是人们有意识地对自己生活、生产活动的室内进行安排布置，甚至美化装饰，赋予室内环境以所祈使的气氛，却早巳从人类文明伊始的时期就已存在</p>
-                  <a href="details.html" class="go-icon"></a>
-                </div>
-            </div>
-            </div>
-           </div>
-        </div>
-        <div class="item">
           <div class="layui-fluid">
             <div class="layui-row">
               <div class="layui-col-xs12 layui-col-sm4 layui-col-md5">
@@ -149,8 +117,8 @@
             </div>
             </div>
            </div>
-        </div>
-      </div>-->
+        </div>-->
+      </div>
       <div id="demo" style="text-align: center;"></div>
     </div>
   </div>
@@ -169,20 +137,11 @@
           <p>More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>&ndash;&gt;
         </div>
       </div>
-    </div>-->
-  </div>
+    </div>
+  </div>-->
+  <!-- jQuery -->
+  <script src="/bootstrap3/js/jquery.min.js"></script>
   <script type="text/javascript" src="/layui/layui.js"></script>
-  <script type="text/javascript">
-    layui.config({
-      base: '/js'
-    }).use(['element','laypage','jquery','menu'],function(){
-      element = layui.element,laypage = layui.laypage,$ = layui.$,menu = layui.menu;
-      laypage.render({
-        elem: 'demo'
-        ,count: 70 //数据总数，从服务端得到
-      });
-      menu.init();
-    })
-  </script>
+  <script type="text/javascript" src="/js/home.js"></script>
 </body>
 </html>

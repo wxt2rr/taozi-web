@@ -67,8 +67,8 @@ public class UserService {
                 }
             }
             //生成jpeg图片
-            String imgFilePath = "/root/software/tomcat/apache-tomcat-8.5.33/webapps/ROOT/user/head/" + userId + ".png";//新生成的图片
-            //String imgFilePath = "D:/toaziWeb/taozi-web/src/main/webapp/user/head/" + userId + ".png";//新生成的图片
+            //String imgFilePath = "/root/software/tomcat/apache-tomcat-8.5.33/webapps/ROOT/user/head/" + userId + ".png";//新生成的图片
+            String imgFilePath = "D:\\taozi-web-git\\taozi-web\\src\\main\\webapp\\user\\head\\" + userId + ".png";//新生成的图片
             String path = "/user/head/" + userId + ".png";
             OutputStream out = new FileOutputStream(imgFilePath);
             out.write(b);

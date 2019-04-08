@@ -3,14 +3,18 @@ package code.collector;
 import code.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import code.service.DiaryService;
 import util.GlobalResponse;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/diary/")
@@ -32,7 +36,7 @@ public class DiaryCollector {
         }
     }
 
-    @RequestMapping("saveBlog.do")
+    @RequestMapping("saveBlog")
     @ResponseBody
     public GlobalResponse saveBlog(HttpServletRequest request){
         int userId = userService.getUserIdBySession(request);
@@ -56,7 +60,12 @@ public class DiaryCollector {
         return diaryService.getBlogDiary(userId);
     }
 
-    @RequestMapping("getDiaryList.do")
+    /**
+     * @desc 获取博客列表
+     * @author wangxt
+     * @date 2019/4/7 0007 14:35
+     */
+    @RequestMapping("getDiaryList")
     @ResponseBody
     public GlobalResponse getDiaryList(HttpServletRequest request){
         return diaryService.getBlogDiary(null);
@@ -74,10 +83,10 @@ public class DiaryCollector {
         return diaryService.getBlogKind();
     }
 
-    @RequestMapping("getDiaryInfo.do")
+    @RequestMapping("getDiaryInfo")
     @ResponseBody
-    public GlobalResponse getDiaryInfo(HttpServletRequest request,@RequestParam("did") int did){
-        ModelAndView mv = new ModelAndView("/html/info");
+    public GlobalResponse getDiaryInfo(HttpServletRequest request,int did){
+        ModelAndView mv = new ModelAndView();
         int userId = userService.getUserIdBySession(request);
         if(userId <= 0){
             mv.addObject("code",-2);
@@ -111,5 +120,16 @@ public class DiaryCollector {
             return GlobalResponse.createByError(-2,"not login");
         }
         return diaryService.getMyAttention(userId);
+    }
+
+    @RequestMapping("uploadDiaryImg")
+    @ResponseBody
+    public void uploadDiaryImg(HttpServletRequest request, HttpServletResponse response){
+        MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+        MultipartFile file = multipartHttpServletRequest.getFile("file");
+        if(file == null || file.getSize() <= 0){
+            return;
+        }
+        diaryService.uploadDiaryImg(file,response);
     }
 }
