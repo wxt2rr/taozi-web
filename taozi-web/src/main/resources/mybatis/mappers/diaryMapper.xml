@@ -28,4 +28,18 @@
         JOIN org_user AS ou ON ou.user_id = ba.user_id
         WHERE ba.id = #{did}
     </select>
+
+    <select id="sortUserDiary" resultType="BlogArticle">
+        SELECT ba.*,ou.head_url,ou.nickname,ou.user_id FROM blog_article AS ba
+        JOIN org_user AS ou ON ou.user_id = ba.user_id
+        <if test="userId != null">
+            WHERE ou.user_id = #{userId}
+        </if>
+        <if test="type == 1">
+            ORDER BY ba.create_time DESC
+        </if>
+        <if test="type == 2">
+            ORDER BY ba.create_time ASC
+        </if>
+    </select>
 </mapper>

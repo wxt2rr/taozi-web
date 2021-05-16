@@ -132,4 +132,20 @@ public class DiaryCollector {
         }
         diaryService.uploadDiaryImg(file,response);
     }
+
+    /**
+     * 排序用户博客
+     * @param type 1 按照时间升序 2按照时间降序
+     * 。
+     */
+    @RequestMapping("sortUserDiary")
+    @ResponseBody
+    public GlobalResponse sortUserDiary(HttpServletRequest request, HttpServletResponse response,
+                                        int type){
+        int userId = userService.getUserIdBySession(request);
+        if(userId <= 0){
+            return GlobalResponse.createByError(-2,"not login");
+        }
+        return diaryService.sortUserDiary(userId, type);
+    }
 }

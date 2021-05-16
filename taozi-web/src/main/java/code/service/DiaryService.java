@@ -104,4 +104,17 @@ public class DiaryService {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 排序用户博客
+     * @param  userId 用户id
+     * @param type 1按照时间升序  2按照时间降序
+     */
+    public GlobalResponse sortUserDiary(int userId, int type) {
+        List<BlogArticle> blogDiary = diaryDao.sortUserDiary(userId, type);
+        for(BlogArticle b : blogDiary){
+            b.setTime(DateUtilEYK.parseDateToStr(b.getCreateTime(),DateUtilEYK.DateFormatEnum.d));
+        }
+        return GlobalResponse.createBySuccess(blogDiary);
+    }
 }
